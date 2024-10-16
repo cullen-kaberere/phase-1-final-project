@@ -39,29 +39,32 @@
                   </div>    
                 </div>
                 <hr>
-                <div class="row">
-                  <div class="col-md-12">
-                    <table class="table table-bordered">
-                      <thead>
-                        <tr>
-                          <th>Expense Description</th>
-                          <th>Expense Amount</th>
-                          <th></th>
-                        </tr>
-                      </thead>
-                      <tbody id="expenses-table">
-                        </tbody>
-                    </table>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col-md-6">
-                    <p><strong>Total Expenses:</strong> <span id="total-expenses">Ksh0.00</span></p>
-                  </div>
-                  <div class="col-md-6">
-                    <p><strong>Remaining Budget:</strong> <span id="remaining-budget">Ksh0.00</span></p>
-                  </div>
-                </div>          
+                <div class="row g-3">
+                    <div class="col-md-4">
+                      <div class="card">
+                        <div class="card-body">
+                          <h5 class="card-title">Budget</h5>
+                          <p class="card-text" id="budget-display">Ksh 0.00</p>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="card">
+                        <div class="card-body">
+                          <h5 class="card-title">Expenses</h5>
+                          <p class="card-text" id="expenses-display">Ksh 0.00</p>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="card">
+                        <div class="card-body">
+                          <h5 class="card-title">Balance</h5>
+                          <p class="card-text" id="balance-display">Ksh 0.00</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>      
         </form>      
     </div>
     <script src="./src/js/index.js"></script>

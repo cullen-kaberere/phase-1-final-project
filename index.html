@@ -8,7 +8,61 @@
 </head>
 <body class="bg-tertiary">
     <div class="container">
-
+        <form class="fr-container">
+                <div class="fr-h1">
+                    <h1>Cullens's Budget App</h1>
+                </div>
+                <div class="row g-3">
+                  <div class="col-md-4">
+                    <label for="budget">Your Budget:</label>
+                    <div class="input-group">
+                      <span class="input-group-text">Ksh</span>
+                      <input type="number" class="form-control" id="budget" placeholder="Enter your budget">
+                      <div class="col-md-4">
+                       <button type="button" class="btn" onclick="calculate()">Calculate</button>
+                     </div>
+                    </div>
+                  </div>
+                  <div class="col-md-4">
+                    <label for="expenses-desc">Expenses Details:</label>
+                    <input type="text" class="form-control" id="expenses-desc" placeholder="Enter expense description">
+                  </div>
+                  <div class="col-md-4">
+                    <label for="expenses-amount">Expenses Amount:</label>
+                    <div class="input-group">
+                      <span class="input-group-text">Ksh</span>
+                      <input type="number" class="form-control" id="expenses-amount" placeholder="Enter expense amount">
+                      <div class="col-md-4">
+                        <button type="button" class="btn btn-success" onclick="addExpense()">Add Expenses</button>
+                      </div>
+                    </div>
+                  </div>    
+                </div>
+                <hr>
+                <div class="row">
+                  <div class="col-md-12">
+                    <table class="table table-bordered">
+                      <thead>
+                        <tr>
+                          <th>Expense Description</th>
+                          <th>Expense Amount</th>
+                          <th></th>
+                        </tr>
+                      </thead>
+                      <tbody id="expenses-table">
+                        </tbody>
+                    </table>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-6">
+                    <p><strong>Total Expenses:</strong> <span id="total-expenses">Ksh0.00</span></p>
+                  </div>
+                  <div class="col-md-6">
+                    <p><strong>Remaining Budget:</strong> <span id="remaining-budget">Ksh0.00</span></p>
+                  </div>
+                </div>          
+        </form>      
     </div>
     <script src="./src/js/index.js"></script>
 </body>

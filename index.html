@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CK Budget Masterer</title>
-    <link rel="stylesheet" href="./src/css/styles.css"> 
+    <link rel="stylesheet" href="./src/css/styles.css">
 </head>
 <body class="bg-tertiary">
     <!-- First form inside container -->
@@ -28,9 +28,15 @@
             </form>
         </div>
     </div>
-  
+
     <!-- Second form outside the first container -->
-    <Form class="fr-container text-center d-none" id="secondForm">
+    <form class="fr-container text-center d-none" id="secondForm">
+        <!-- Back button -->
+        <div class="back-button-container text-start">
+            <button type="button" class="btn btn-primary" onclick="returnToFirstForm()">Back to Budget Entry</button>
+        </div>
+        
+        <!-- Form content -->
         <div class="fr-h1">
             <h1>Ck Budget Master</h1>
         </div>
@@ -51,7 +57,7 @@
             </div>
         </div>
         <hr>
-        <div class="row g-3"> 
+        <div class="row g-3">
             <div class="col-md-4">
                 <div class="card">
                     <div class="card-body">
@@ -78,9 +84,8 @@
             </div>
         </div>
         <ul class="list-group" id="expense-list"></ul>
-    </Form>
-  
+    </form>
+
     <script src="./src/js/index.js"></script>
-  </body>
-  
+</body>
 </html>

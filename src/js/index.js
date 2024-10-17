@@ -95,3 +95,4 @@ function removeExpense(index) {
     const balance = budget - totalExpenses;
     document.getElementById("balance-display").textContent = "Ksh " + balance;
 }
+

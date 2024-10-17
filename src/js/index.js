@@ -2,16 +2,16 @@ let totalExpenses = 0;
 let expenses = [];
 
 function calculate() {
-    const budgetInput = document.getElementById("budget");
-    const budgetDisplay = document.getElementById("budget-display");
-    const budget = budgetInput.value;
-    budgetDisplay.textContent = "Ksh " + budget;
+  const budgetInput = document.getElementById("budget");
+  const budgetDisplay = document.getElementById("budget-display");
+  const budget = budgetInput.value;
+  budgetDisplay.textContent = "Ksh " + budget;
 
-    // Show the second form by removing the d-none class
-    document.getElementById("secondForm").classList.remove("d-none");
+  // Show the second form by removing the d-none class
+  document.getElementById("secondForm").classList.remove("d-none");
 
-    // Hide the first form by adding the d-none class
-    document.querySelector("form").classList.add("d-none");
+  // Hide the entire container for the first form (including the surrounding layout)
+  document.querySelector(".container").classList.add("d-none");
 }
 
 function addExpense() {
@@ -95,4 +95,3 @@ function removeExpense(index) {
     const balance = budget - totalExpenses;
     document.getElementById("balance-display").textContent = "Ksh " + balance;
 }
-

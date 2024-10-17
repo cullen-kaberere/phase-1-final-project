@@ -55,8 +55,19 @@ function renderExpenseList() {
     expenses.forEach((expense, index) => {
         const li = document.createElement("li");
         li.className = "list-group-item d-flex justify-content-between align-items-center";
-        li.textContent = `${expense.description}: Ksh ${expense.amount}`;
 
+        // Create separate elements for description and amount
+        const description = document.createElement("span");
+        description.textContent = expense.description;
+        
+        const amount = document.createElement("span");
+        amount.style.marginLeft = "15px"; // Adds 15px space between description and amount
+        amount.textContent = `Ksh ${expense.amount}`;
+
+        // Append the description and amount to the list item
+        li.appendChild(description);
+        li.appendChild(amount);
+        
         // Edit button with smaller size
         const editButton = document.createElement("button");
         editButton.className = "btn btn-warning btn-sm ms-2 btn-smaller";
@@ -69,11 +80,15 @@ function renderExpenseList() {
         removeButton.textContent = "Remove";
         removeButton.onclick = () => removeExpense(index);
 
+        // Append buttons to the list item
         li.appendChild(editButton);
         li.appendChild(removeButton);
+        
+        // Append the list item to the expense list
         expenseList.appendChild(li);
     });
 }
+
 
 function editExpense(index) {
     const expense = expenses[index];
@@ -91,7 +106,7 @@ function removeExpense(index) {
     document.getElementById("expenses-display").textContent = "Ksh " + totalExpenses;
     const budget = parseInt(document.getElementById("budget-display").textContent.replace("Ksh ", ""));
     const balance = budget - totalExpenses;
-    document.getElementById("balance-display").textContent = "Ksh " + balance;
+    document.getElementById("balance-display").textContent = "Ksh: " + balance;
 }
 
 function returnToFirstForm() {

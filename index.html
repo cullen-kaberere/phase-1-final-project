@@ -3,70 +3,105 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Budget Tracker</title>
+    <title>CK Budget Masterer</title>
     <link rel="stylesheet" href="./src/css/styles.css">
 </head>
 <body class="bg-tertiary">
-    <div class="container">
-        <form class="fr-container">
-                <div class="fr-h1">
-                    <h1>Cullens's Budget App</h1>
+    <!-- First form inside container -->
+    <div class="container d-flex h-100">
+        <div class="bg-container text-center align-self-center">
+            <form>
+                <h1>Hello.</h1>
+                <p>Welcome to CK Budget Master. Track, save, and thrive with our easy-to-use budgeting tool.</p>
+                <div class="row justify-content-center g-3">
+                    <div class="col-md-4">
+                        <label for="budget">Please Enter Your Budget:</label>
+                        <div class="input-group">
+                            <span class="input-group-text">Ksh</span>
+                            <input type="number" class="form-control" id="budget" placeholder="Enter your budget">
+                            <div class="col-md-4">
+                                <button type="button" class="btn" onclick="calculate()">Calculate</button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="row g-3">
-                  <div class="col-md-4">
-                    <label for="budget">Your Budget:</label>
-                    <div class="input-group">
-                      <span class="input-group-text">Ksh</span>
-                      <input type="number" class="form-control" id="budget" placeholder="Enter your budget">
-                      <div class="col-md-4">
-                       <button type="button" class="btn" onclick="calculate()">Calculate</button>
-                     </div>
-                    </div>
-                  </div>
-                  <div class="col-md-4">
-                    <label for="expenses-desc">Expenses Details:</label>
-                    <input type="text" class="form-control" id="expenses-desc" placeholder="Enter expense description">
-                  </div>
-                  <div class="col-md-4">
-                    <label for="expenses-amount">Expenses Amount:</label>
-                    <div class="input-group">
-                      <span class="input-group-text">Ksh</span>
-                      <input type="number" class="form-control" id="expenses-amount" placeholder="Enter expense amount">
-                      <div class="col-md-4">
-                        <button type="button" class="btn btn-success" onclick="addExpense()">Add Expenses</button>
-                      </div>
-                    </div>
-                  </div>    
-                </div>
-                <hr>
-                <div class="row g-3">
-                    <div class="col-md-4">
-                      <div class="card">
-                        <div class="card-body">
-                          <h5 class="card-title">Budget</h5>
-                          <p class="card-text" id="budget-display">Ksh 0.00</p>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col-md-4">
-                      <div class="card">
-                        <div class="card-body">
-                          <h5 class="card-title">Expenses</h5>
-                          <p class="card-text" id="expenses-display">Ksh 0.00</p>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col-md-4">
-                      <div class="card">
-                        <div class="card-body">
-                          <h5 class="card-title">Balance</h5>
-                          <p class="card-text" id="balance-display">Ksh 0.00</p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>      
-        </form>      
+            </form>
+        </div>
     </div>
+
+    <!-- Second form outside the first container -->
+    <form class="fr-container text-center d-none" id="secondForm">
+        <!-- Back button -->
+        <div class="back-button-container text-start">
+            <button type="button" class="btn btn-primary" onclick="returnToFirstForm()">Back to Budget Entry</button>
+        </div>
+        
+        <!-- Form content -->
+        <div class="fr-h1">
+            <h1>Ck Budget Master</h1>
+        </div>
+        <div class="row g-3">
+            <div class="col-md-4">
+                <label for="expenses-desc">Expenses Details:</label>
+                <input type="text" class="form-control" id="expenses-desc" placeholder="Enter expense description">
+            </div>
+            <div class="col-md-4">
+                <label for="expenses-amount">Expenses Amount:</label>
+                <div class="input-group">
+                    <span class="input-group-text">Ksh</span>
+                    <input type="number" class="form-control" id="expenses-amount" placeholder="Enter expense amount">
+                    <div class="col-md-4">
+                        <button type="button" class="btn btn-success" onclick="addExpense()">Add Expenses</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr>
+        <div class="row g-3">
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Budget</h5>
+                        <p class="card-text" id="budget-display">Ksh 0.00</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Expenses</h5>
+                        <p class="card-text" id="expenses-display">Ksh 0.00</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Balance</h5>
+                        <p class="card-text" id="balance-display">Ksh 0.00</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Currency selection and conversion button -->
+        <div class="row g-3">
+            <div class="col-md-4">
+                <label for="currency-select">Choose Currency:</label>
+                <select id="currency-select" class="form-select">
+                    <option value="Ksh">Kenyan Shilling (Ksh)</option>
+                    <option value="USD">US Dollar (USD)</option>
+                    <option value="EUR">Euro (EUR)</option>
+                    <option value="GBP">British Pound (GBP)</option>
+                </select>
+            </div>
+            <div class="col-md-4">
+                <button type="button" class="btn btn-info" onclick="convertCurrency()">Convert Currency</button>
+            </div>
+        </div>
+        <ul class="list-group" id="expense-list"></ul>
+    </form>
+
     <script src="./src/js/index.js"></script>
 </body>
 </html>

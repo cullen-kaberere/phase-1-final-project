@@ -1,11 +1,13 @@
 let totalExpenses = 0;
 let expenses = [];
+let currentCurrency = 'Ksh'; // Default currency
 
+// Function to calculate and display the budget
 function calculate() {
     const budgetInput = document.getElementById("budget");
     const budgetDisplay = document.getElementById("budget-display");
     const budget = budgetInput.value;
-    budgetDisplay.textContent = "Ksh " + budget;
+    budgetDisplay.textContent = currentCurrency + " " + budget;
 
     // Show the second form by removing the d-none class
     document.getElementById("secondForm").classList.remove("d-none");
@@ -14,6 +16,7 @@ function calculate() {
     document.querySelector(".container").classList.add("d-none");
 }
 
+// Function to add an expense
 function addExpense() {
     const expensesDescInput = document.getElementById("expenses-desc");
     const expensesAmountInput = document.getElementById("expenses-amount");
@@ -27,27 +30,23 @@ function addExpense() {
         return;
     }
 
-    // Create an expense object
     const expense = { description: expenseDescription, amount: expensesAmount };
     expenses.push(expense);
 
-    // Accumulate expenses
     totalExpenses += expensesAmount;
-    expensesDisplay.textContent = "Ksh " + totalExpenses;
+    expensesDisplay.textContent = currentCurrency + " " + totalExpenses;
 
-    // Calculate and update the balance
-    const budget = parseInt(document.getElementById("budget-display").textContent.replace("Ksh ", ""));
+    const budget = parseInt(document.getElementById("budget-display").textContent.replace(currentCurrency + " ", ""));
     const balance = budget - totalExpenses;
-    document.getElementById("balance-display").textContent = "Ksh " + balance;
+    document.getElementById("balance-display").textContent = currentCurrency + " " + balance;
 
-    // Add the expense to the list
     renderExpenseList();
 
-    // Clear the input fields
     expensesDescInput.value = "";
     expensesAmountInput.value = "";
 }
 
+// Function to render the list of expenses
 function renderExpenseList() {
     const expenseList = document.getElementById("expense-list");
     expenseList.innerHTML = ""; // Clear the list before rendering
@@ -56,40 +55,34 @@ function renderExpenseList() {
         const li = document.createElement("li");
         li.className = "list-group-item d-flex justify-content-between align-items-center";
 
-        // Create separate elements for description and amount
         const description = document.createElement("span");
         description.textContent = expense.description;
-        
-        const amount = document.createElement("span");
-        amount.style.marginLeft = "15px"; // Adds 15px space between description and amount
-        amount.textContent = `Ksh ${expense.amount}`;
 
-        // Append the description and amount to the list item
+        const amount = document.createElement("span");
+        amount.style.marginLeft = "15px";
+        amount.textContent = currentCurrency + " " + expense.amount;
+
         li.appendChild(description);
         li.appendChild(amount);
-        
-        // Edit button with smaller size
+
         const editButton = document.createElement("button");
         editButton.className = "btn btn-warning btn-sm ms-2 btn-smaller";
         editButton.textContent = "Edit";
         editButton.onclick = () => editExpense(index);
 
-        // Remove button with smaller size
         const removeButton = document.createElement("button");
         removeButton.className = "btn btn-danger btn-sm ms-2 btn-smaller";
         removeButton.textContent = "Remove";
         removeButton.onclick = () => removeExpense(index);
 
-        // Append buttons to the list item
         li.appendChild(editButton);
         li.appendChild(removeButton);
-        
-        // Append the list item to the expense list
+
         expenseList.appendChild(li);
     });
 }
 
-
+// Function to edit an expense
 function editExpense(index) {
     const expense = expenses[index];
     document.getElementById("expenses-desc").value = expense.description;
@@ -98,30 +91,83 @@ function editExpense(index) {
     removeExpense(index);
 }
 
+// Function to remove an expense
 function removeExpense(index) {
     totalExpenses -= expenses[index].amount;
     expenses.splice(index, 1);
     renderExpenseList();
 
-    document.getElementById("expenses-display").textContent = "Ksh " + totalExpenses;
-    const budget = parseInt(document.getElementById("budget-display").textContent.replace("Ksh ", ""));
+    document.getElementById("expenses-display").textContent = currentCurrency + " " + totalExpenses;
+    const budget = parseInt(document.getElementById("budget-display").textContent.replace(currentCurrency + " ", ""));
     const balance = budget - totalExpenses;
-    document.getElementById("balance-display").textContent = "Ksh: " + balance;
+    document.getElementById("balance-display").textContent = currentCurrency + " " + balance;
 }
 
+// Function to return to the first form and reset values
 function returnToFirstForm() {
-    // Hide the second form
     document.getElementById("secondForm").classList.add("d-none");
-
-    // Show the first form container
     document.querySelector(".container").classList.remove("d-none");
 
-    // Clear previous inputs and data if necessary
     document.getElementById("budget").value = "";
-    document.getElementById("budget-display").textContent = "Ksh 0.00";
-    document.getElementById("expenses-display").textContent = "Ksh 0.00";
-    document.getElementById("balance-display").textContent = "Ksh 0.00";
+    document.getElementById("budget-display").textContent = currentCurrency + " 0.00";
+    document.getElementById("expenses-display").textContent = currentCurrency + " 0.00";
+    document.getElementById("balance-display").textContent = currentCurrency + " 0.00";
     totalExpenses = 0;
     expenses = [];
+    renderExpenseList();
+}
+
+// Function to convert currency using an API
+async function convertCurrency() {
+    const selectedCurrency = document.getElementById("currency-select").value;
+    const apiKey = 'ae193a0e7b9ac60f1dfb55cc'; // Replace with your API key
+    const url = `https://v6.exchangerate-api.com/v6/${apiKey}/latest/KES`;
+
+    try {
+        const response = await fetch(url);
+        const data = await response.json();
+
+        const exchangeRate = data.conversion_rates[selectedCurrency];
+        if (!exchangeRate) {
+            alert("Currency conversion failed. Please try again.");
+            return;
+        }
+
+        // Update all amounts
+        convertAmounts(exchangeRate, selectedCurrency);
+    } catch (error) {
+        console.error("Error fetching exchange rate:", error);
+        alert("An error occurred while converting currency.");
+    }
+}
+
+// Function to convert amounts to the selected currency
+function convertAmounts(exchangeRate, newCurrency) {
+    const budgetDisplay = document.getElementById("budget-display");
+    const expensesDisplay = document.getElementById("expenses-display");
+    const balanceDisplay = document.getElementById("balance-display");
+
+    // Convert the budget
+    const currentBudget = parseFloat(budgetDisplay.textContent.replace(currentCurrency + " ", ""));
+    const newBudget = (currentBudget * exchangeRate).toFixed(2);
+    budgetDisplay.textContent = newCurrency + " " + newBudget;
+
+    // Convert the expenses
+    const currentExpenses = parseFloat(expensesDisplay.textContent.replace(currentCurrency + " ", ""));
+    const newExpenses = (currentExpenses * exchangeRate).toFixed(2);
+    expensesDisplay.textContent = newCurrency + " " + newExpenses;
+
+    // Convert the balance
+    const currentBalance = parseFloat(balanceDisplay.textContent.replace(currentCurrency + " ", ""));
+    const newBalance = (currentBalance * exchangeRate).toFixed(2);
+    balanceDisplay.textContent = newCurrency + " " + newBalance;
+
+    // Update individual expenses
+    expenses = expenses.map(expense => {
+        expense.amount = (expense.amount * exchangeRate).toFixed(2);
+        return expense;
+    });
+
+    currentCurrency = newCurrency;
     renderExpenseList();
 }

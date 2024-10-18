@@ -83,6 +83,22 @@
                 </div>
             </div>
         </div>
+
+        <!-- Currency selection and conversion button -->
+        <div class="row g-3">
+            <div class="col-md-4">
+                <label for="currency-select">Choose Currency:</label>
+                <select id="currency-select" class="form-select">
+                    <option value="Ksh">Kenyan Shilling (Ksh)</option>
+                    <option value="USD">US Dollar (USD)</option>
+                    <option value="EUR">Euro (EUR)</option>
+                    <option value="GBP">British Pound (GBP)</option>
+                </select>
+            </div>
+            <div class="col-md-4">
+                <button type="button" class="btn btn-info" onclick="convertCurrency()">Convert Currency</button>
+            </div>
+        </div>
         <ul class="list-group" id="expense-list"></ul>
     </form>
 

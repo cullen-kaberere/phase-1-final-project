@@ -107,3 +107,21 @@ p {
     color: white;
     border-radius: 5px;
 }
+/* Style for the currency conversion section */
+#currency-select {
+    margin-top: 10px;
+    padding: 5px;
+    width: 100%;
+}
+
+.btn-info {
+    margin-top: 10px;
+    width: 100%;
+    background-color: #17a2b8;
+    color: white;
+    border: none;
+}
+
+.btn-info:hover {
+    background-color: #138496;
+}

@@ -17,4 +17,7 @@ CK Budget Masterer is a web-based tool for managing your budget and expenses wit
 * ExchangeRate-API for currency conversion
 
 ---
-Cullen Kaberere
+Link [https://cullen-kaberere.github.io/phase-1-final-project/]
+
+---
+## Author: Cullen Kaberere
